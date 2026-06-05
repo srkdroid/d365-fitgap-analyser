@@ -1,0 +1,16 @@
+# Render Blueprint — D365 Fit-Gap Analyser
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: d365-fitgap-analyser
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: cd server && npm install && cd ../client && npm install && npm run build
+    startCommand: cd server && NODE_ENV=production node src/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false  # You'll set this manually in the Render dashboard

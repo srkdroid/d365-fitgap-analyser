@@ -1,0 +1,24 @@
+{
+  "name": "d365-fitgap-server",
+  "version": "1.0.0",
+  "description": "Backend server for D365 F&O Fit-Gap Analyser — RAG-powered requirement classification",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon --ignore src/data/ src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "keywords": ["d365", "fit-gap", "dynamics365", "rag"],
+  "license": "MIT"
+}

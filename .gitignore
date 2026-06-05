@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+
+# Intermediate caches (not needed in production)
+server/src/data/chunks-cache.json
+server/src/data/partial-embeddings.json
+
+# Build output (rebuilt on deploy)
+client/dist/
+
+# Generated files
+*.xlsx
+
+# Dev scripts
+analyze-bpc-size.ps1

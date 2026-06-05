@@ -1,0 +1,248 @@
+[
+  {
+    "name": "Avalara",
+    "area": "Tax Calculation",
+    "modules": ["General Ledger", "Accounts Receivable", "Accounts Payable"],
+    "description": "Automated tax compliance and calculation for sales tax, VAT, and GST across multiple jurisdictions."
+  },
+  {
+    "name": "Vertex",
+    "area": "Tax Compliance",
+    "modules": ["General Ledger", "Accounts Receivable", "Accounts Payable"],
+    "description": "Enterprise tax technology for indirect tax determination, compliance, and reporting across global operations."
+  },
+  {
+    "name": "Bottomline Technologies",
+    "area": "Payment Processing",
+    "modules": ["Accounts Payable", "Accounts Receivable", "Cash Management"],
+    "description": "Secure payment automation, fraud prevention, and financial messaging for AP/AR payment processing."
+  },
+  {
+    "name": "Kofax / Tungsten Automation",
+    "area": "Invoice Automation",
+    "modules": ["Accounts Payable", "Procurement"],
+    "description": "AI-powered invoice capture, data extraction, and AP automation with OCR and machine learning."
+  },
+  {
+    "name": "BlackLine",
+    "area": "Financial Close",
+    "modules": ["General Ledger", "Financial Reporting"],
+    "description": "Cloud-based financial close management including account reconciliation, journal entry, and intercompany processing."
+  },
+  {
+    "name": "Coupa",
+    "area": "Procurement",
+    "modules": ["Procurement", "Accounts Payable"],
+    "description": "Business spend management platform for procurement, invoicing, and supply chain collaboration."
+  },
+  {
+    "name": "To-Increase",
+    "area": "Quality Management",
+    "modules": ["Quality Management", "Warehouse Management", "Production Control"],
+    "description": "Advanced quality management, EDI integration, and document output management for D365FO."
+  },
+  {
+    "name": "ClickLearn",
+    "area": "Training & Documentation",
+    "modules": ["All Modules"],
+    "description": "Automated creation of training materials, process documentation, and user guides from D365FO recordings."
+  },
+  {
+    "name": "Binary Stream",
+    "area": "Multi-Entity Management",
+    "modules": ["General Ledger", "Financial Reporting"],
+    "description": "Multi-entity, multi-currency management with shared services and intercompany processing for D365."
+  },
+  {
+    "name": "Hitachi Solutions",
+    "area": "Industry Solutions",
+    "modules": ["Sales", "Customer Service", "Field Service"],
+    "description": "Industry-specific solutions for retail, manufacturing, and distribution on the Microsoft platform."
+  },
+  {
+    "name": "Insight Works",
+    "area": "Warehouse & Manufacturing",
+    "modules": ["Warehouse Management", "Production Control", "Inventory Management"],
+    "description": "Mobile warehouse, shop floor data collection, and manufacturing productivity solutions for D365FO."
+  },
+  {
+    "name": "Esker",
+    "area": "Order Management",
+    "modules": ["Sales", "Accounts Receivable", "Accounts Payable"],
+    "description": "AI-driven order-to-cash and procure-to-pay automation including order processing and AP automation."
+  },
+  {
+    "name": "Vena Solutions",
+    "area": "Budgeting & Planning",
+    "modules": ["General Ledger", "Financial Reporting", "Budgeting"],
+    "description": "Complete planning platform for budgeting, forecasting, and financial reporting with Excel-native interface."
+  },
+  {
+    "name": "Solver",
+    "area": "Financial Reporting",
+    "modules": ["General Ledger", "Financial Reporting"],
+    "description": "Cloud-based corporate performance management for reporting, budgeting, and dashboards integrated with D365FO."
+  },
+  {
+    "name": "Plex Systems",
+    "area": "Manufacturing",
+    "modules": ["Production Control", "Quality Management", "Inventory Management"],
+    "description": "Smart manufacturing platform for production monitoring, quality, and supply chain management."
+  },
+  {
+    "name": "eOne Solutions (SmartConnect)",
+    "area": "Data Integration",
+    "modules": ["All Modules"],
+    "description": "No-code data integration and migration tool for connecting D365FO with external systems and data sources."
+  },
+  {
+    "name": "KTL Solutions",
+    "area": "Government & Non-Profit",
+    "modules": ["General Ledger", "Project Accounting", "Budgeting"],
+    "description": "Specialised solutions for government, non-profit, and public sector organisations on D365."
+  },
+  {
+    "name": "Progressus",
+    "area": "Professional Services",
+    "modules": ["Project Operations", "Project Accounting"],
+    "description": "Project accounting and resource management designed for professional services firms on D365FO."
+  },
+  {
+    "name": "Continia",
+    "area": "Document Management",
+    "modules": ["Accounts Payable", "Accounts Receivable", "Procurement"],
+    "description": "Document capture, expense management, and approval workflows for D365 Business Central and F&O."
+  },
+  {
+    "name": "Sertifi",
+    "area": "E-Signatures",
+    "modules": ["Sales", "Accounts Receivable", "Contract Management"],
+    "description": "Electronic signature and agreement management platform integrated with D365 for contract closing."
+  },
+  {
+    "name": "AvidXchange",
+    "area": "AP Automation",
+    "modules": ["Accounts Payable"],
+    "description": "End-to-end accounts payable and payment automation for mid-market companies."
+  },
+  {
+    "name": "Corcentric",
+    "area": "Procurement & AP",
+    "modules": ["Procurement", "Accounts Payable"],
+    "description": "Source-to-pay solutions including procurement, accounts payable, and fleet management."
+  },
+  {
+    "name": "Anveo",
+    "area": "EDI Integration",
+    "modules": ["Sales", "Procurement", "Warehouse Management"],
+    "description": "EDI and electronic document exchange solution fully embedded within D365 environments."
+  },
+  {
+    "name": "Infor (Nexus)",
+    "area": "Supply Chain Network",
+    "modules": ["Warehouse Management", "Inventory Management", "Procurement"],
+    "description": "Multi-enterprise supply chain network for visibility, collaboration, and logistics orchestration."
+  },
+  {
+    "name": "Prophix",
+    "area": "Corporate Performance Management",
+    "modules": ["General Ledger", "Financial Reporting", "Budgeting"],
+    "description": "Financial planning and analysis software for budgeting, forecasting, reporting, and consolidation."
+  },
+  {
+    "name": "Rillion (formerly ReadSoft)",
+    "area": "Invoice Processing",
+    "modules": ["Accounts Payable"],
+    "description": "Automated invoice processing and AP workflow management with AI-based data extraction."
+  },
+  {
+    "name": "Paramount Workplace",
+    "area": "Fixed Assets",
+    "modules": ["Fixed Assets"],
+    "description": "Comprehensive fixed asset management, depreciation, and tracking solution for D365."
+  },
+  {
+    "name": "Dynamicweb",
+    "area": "E-Commerce",
+    "modules": ["Sales", "Inventory Management"],
+    "description": "Integrated e-commerce, PIM, and digital marketing platform natively connected to D365FO."
+  },
+  {
+    "name": "Sana Commerce",
+    "area": "B2B E-Commerce",
+    "modules": ["Sales", "Accounts Receivable", "Inventory Management"],
+    "description": "B2B e-commerce platform integrated with D365FO ERP data for real-time product, pricing, and inventory."
+  },
+  {
+    "name": "Pagero",
+    "area": "E-Invoicing",
+    "modules": ["Accounts Payable", "Accounts Receivable"],
+    "description": "Global e-invoicing and business network for compliant electronic document exchange."
+  },
+  {
+    "name": "Tungsten Network",
+    "area": "Purchase Order Automation",
+    "modules": ["Procurement", "Accounts Payable"],
+    "description": "Purchase order and invoice automation network connecting buyers and suppliers digitally."
+  },
+  {
+    "name": "PROS",
+    "area": "Pricing Optimization",
+    "modules": ["Sales", "Accounts Receivable"],
+    "description": "AI-powered dynamic pricing, CPQ (configure-price-quote), and revenue management."
+  },
+  {
+    "name": "Aptean",
+    "area": "Industry ERP Extensions",
+    "modules": ["Production Control", "Quality Management", "Inventory Management"],
+    "description": "Industry-specific ERP extensions for food & beverage, chemicals, and discrete manufacturing."
+  },
+  {
+    "name": "Levridge",
+    "area": "Agriculture & Commodity",
+    "modules": ["Inventory Management", "Sales", "Procurement"],
+    "description": "Commodity management, grain accounting, and agribusiness solutions built on D365FO."
+  },
+  {
+    "name": "Companial (formerly 1ClickFactory)",
+    "area": "Cloud Migration",
+    "modules": ["All Modules"],
+    "description": "Cloud migration, upgrade, and modernisation services for Dynamics 365 environments."
+  },
+  {
+    "name": "Sikich",
+    "area": "Consulting & Extensions",
+    "modules": ["General Ledger", "Sales", "Procurement"],
+    "description": "D365 implementation partner offering custom extensions for tax, reporting, and process automation."
+  },
+  {
+    "name": "DXC Technology",
+    "area": "Enterprise Integration",
+    "modules": ["All Modules"],
+    "description": "Enterprise IT services and integration solutions for large-scale D365FO deployments."
+  },
+  {
+    "name": "Paylocity",
+    "area": "Payroll",
+    "modules": ["Human Resources", "Payroll"],
+    "description": "Cloud-based payroll and human capital management platform integrating with D365 HR modules."
+  },
+  {
+    "name": "Ceridian (Dayforce)",
+    "area": "HCM & Payroll",
+    "modules": ["Human Resources", "Payroll"],
+    "description": "Global human capital management including payroll, workforce management, and talent acquisition."
+  },
+  {
+    "name": "Templafy",
+    "area": "Document Generation",
+    "modules": ["Sales", "General Ledger", "All Modules"],
+    "description": "Enterprise document generation and template management for consistent business documents from D365."
+  },
+  {
+    "name": "Vizex (by To-Increase)",
+    "area": "Data Visibility",
+    "modules": ["All Modules"],
+    "description": "Enhanced data entity management and visibility tools for D365FO data integration scenarios."
+  }
+]
