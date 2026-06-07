@@ -68,7 +68,7 @@ export default function App() {
 
       <footer className="app-footer">
         <p>
-          Designed & Built by <strong>RK S</strong>, D365FO Solution Architect (MB700)
+          Designed & Built by <strong>Ramkumar Subbarao</strong>, D365FO Solution Expert
         </p>
       </footer>
 
