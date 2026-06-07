@@ -326,6 +326,20 @@ input, textarea, select {
   gap: var(--space-6);
 }
 
+.app-footer {
+  text-align: center;
+  padding: var(--space-6) var(--space-8);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  border-top: 1px solid rgba(var(--primary-rgb), 0.08);
+  background: rgba(5, 10, 24, 0.4);
+}
+
+.app-footer strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
 
 /* ─── Glassmorphism Card ────────────────────────────────── */
 .glass-card {

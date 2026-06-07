@@ -66,6 +66,12 @@ export default function App() {
         )}
       </main>
 
+      <footer className="app-footer">
+        <p>
+          Designed & Built by <strong>RK S</strong>, D365FO Solution Architect (MB700)
+        </p>
+      </footer>
+
       <BulkUploadModal
         isOpen={showBulkModal}
         onClose={() => setShowBulkModal(false)}
