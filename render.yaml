@@ -12,5 +12,5 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: GEMINI_API_KEY
+      - key: GROQ_API_KEY
         sync: false  # You'll set this manually in the Render dashboard

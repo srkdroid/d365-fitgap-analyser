@@ -1,21 +1,24 @@
 /**
- * Gemini API Wrapper
+ * LLM Classification Service
  *
- * Provides embedding generation and structured requirement classification
- * via the Google Generative AI SDK.
+ * Uses Groq (Llama 3.3 70B) for structured requirement classification.
+ * Groq free tier: 30 RPM, 14,400 RPD — no more rate-limit pain.
+ *
+ * The public API (initGemini, classifyRequirement) is kept unchanged
+ * so no other files need modification.
  */
 
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import Groq from 'groq-sdk';
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
-const GENERATION_MODEL = 'gemini-2.5-flash';
-const EMBEDDING_MODEL = 'gemini-embedding-001';
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
-// Delay between embedding batches to respect rate limits (ms)
-const BATCH_DELAY_MS = 2000;
+// Retry config for transient errors (429/503)
+const MAX_CLASSIFY_RETRIES = 3;
+const INITIAL_RETRY_DELAY_MS = 3000; // 3s, then 6s, then 12s
 
 // ---------------------------------------------------------------------------
 // Classification prompt template
@@ -59,6 +62,8 @@ EFFORT ESTIMATION:
 - L (Large): > 10 person-days, major development or complex integration
 
 IMPORTANT: Base your classification primarily on the provided D365 documentation context. If the context doesn't cover the requirement well, use your training knowledge but lower the confidence score.
+
+You MUST respond with ONLY the JSON object. No explanation, no markdown, no code fences.
 `.trim();
 
 // ---------------------------------------------------------------------------
@@ -66,85 +71,29 @@ IMPORTANT: Base your classification primarily on the provided D365 documentation
 // ---------------------------------------------------------------------------
 
 /**
- * Initialise the Gemini service. Returns an object with helper methods.
+ * Initialise the LLM service. Returns an object with helper methods.
+ * Function name kept as initGemini for backward compatibility.
  */
 export function initGemini() {
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY || process.env.GEMINI_API_KEY;
   if (!apiKey) {
     throw new Error(
-      'GEMINI_API_KEY is not set. Add it to .env in the project root.'
+      'GROQ_API_KEY (or GEMINI_API_KEY) is not set. Add it to .env in the project root.'
     );
   }
 
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const generationModel = genAI.getGenerativeModel({ model: GENERATION_MODEL });
-  const embeddingModel = genAI.getGenerativeModel({ model: EMBEDDING_MODEL });
+  const groq = new Groq({ apiKey });
 
   // -------------------------------------------------------------------------
-  // embedText
+  // embedText / embedBatch — stubs (not used with TF-IDF vector store)
   // -------------------------------------------------------------------------
 
-  /**
-   * Embed a single text string and return the embedding vector.
-   * @param {string} text
-   * @returns {Promise<number[]>}
-   */
-  async function embedText(text, retries = 10) {
-    for (let attempt = 1; attempt <= retries; attempt++) {
-      try {
-        const result = await embeddingModel.embedContent(text);
-        return result.embedding.values;
-      } catch (err) {
-        const is429 = err?.status === 429 || err?.message?.includes('429');
-        if (is429 && attempt < retries) {
-          // Google's free tier quota limit requires a long wait (often 30s-60s)
-          const waitMs = 60000;
-          console.warn(`[gemini] Quota limited (429). Retry ${attempt}/${retries} in 60s…`);
-          await new Promise((r) => setTimeout(r, waitMs));
-          continue;
-        }
-        console.error('[gemini] embedText error:', err.message);
-        throw err;
-      }
-    }
+  async function embedText() {
+    throw new Error('Embedding not available via Groq. Use the TF-IDF vector store instead.');
   }
 
-  // -------------------------------------------------------------------------
-  // embedBatch
-  // -------------------------------------------------------------------------
-
-  /**
-   * Embed an array of texts in small sequential batches with generous delays
-   * to stay within Gemini API rate limits.
-   *
-   * @param {string[]} texts
-   * @param {number}   batchSize  — texts per batch (default 5)
-   * @returns {Promise<number[][]>}
-   */
-  async function embedBatch(texts, batchSize = 5) {
-    const allEmbeddings = [];
-
-    for (let i = 0; i < texts.length; i += batchSize) {
-      const batch = texts.slice(i, i + batchSize);
-
-      // Process sequentially within each batch to avoid concurrent 429s
-      const batchResults = [];
-      for (const t of batch) {
-        const emb = await embedText(t);
-        batchResults.push(emb);
-      }
-      allEmbeddings.push(...batchResults);
-
-      const processed = Math.min(i + batchSize, texts.length);
-      console.log(`[gemini] Embedded ${processed}/${texts.length} texts`);
-
-      // Delay before next batch (skip after last batch)
-      if (i + batchSize < texts.length) {
-        await new Promise((r) => setTimeout(r, BATCH_DELAY_MS));
-      }
-    }
-
-    return allEmbeddings;
+  async function embedBatch() {
+    throw new Error('Embedding not available via Groq. Use the TF-IDF vector store instead.');
   }
 
   // -------------------------------------------------------------------------
@@ -152,7 +101,7 @@ export function initGemini() {
   // -------------------------------------------------------------------------
 
   /**
-   * Classify a business requirement using Gemini generation, enriched with
+   * Classify a business requirement using Groq (Llama 3.3 70B), enriched with
    * RAG context chunks from the BPC vector store.
    *
    * @param {string}   requirement   — raw requirement text
@@ -173,19 +122,50 @@ export function initGemini() {
       .replace('{CONTEXT}', contextBlock)
       .replace('{REQUIREMENT}', requirement);
 
-    try {
-      const result = await generationModel.generateContent(prompt);
-      const responseText = result.response.text().trim();
+    for (let attempt = 1; attempt <= MAX_CLASSIFY_RETRIES; attempt++) {
+      try {
+        const chatCompletion = await groq.chat.completions.create({
+          model: GROQ_MODEL,
+          messages: [
+            {
+              role: 'system',
+              content: 'You are a JSON-only assistant. Respond with valid JSON, no markdown, no explanation.',
+            },
+            { role: 'user', content: prompt },
+          ],
+          temperature: 0.3,
+          max_tokens: 1024,
+          response_format: { type: 'json_object' },
+        });
 
-      // Strip markdown fences if the model adds them anyway
-      const cleaned = responseText
-        .replace(/^```(?:json)?\s*/i, '')
-        .replace(/\s*```$/i, '');
+        const responseText = chatCompletion.choices[0]?.message?.content?.trim();
 
-      return JSON.parse(cleaned);
-    } catch (err) {
-      console.error('[gemini] classifyRequirement error:', err.message);
-      throw err;
+        if (!responseText) {
+          throw new Error('Empty response from Groq');
+        }
+
+        // Strip markdown fences if the model adds them anyway
+        const cleaned = responseText
+          .replace(/^```(?:json)?\s*/i, '')
+          .replace(/\s*```$/i, '');
+
+        return JSON.parse(cleaned);
+      } catch (err) {
+        const status = err?.status || err?.statusCode;
+        const isRetryable = status === 429 || status === 503 ||
+          err?.message?.includes('429') || err?.message?.includes('503') ||
+          err?.message?.includes('rate_limit') || err?.message?.includes('overloaded');
+
+        if (isRetryable && attempt < MAX_CLASSIFY_RETRIES) {
+          const delayMs = INITIAL_RETRY_DELAY_MS * Math.pow(2, attempt - 1);
+          console.warn(`[llm] Retryable error (${status || 'unknown'}). Retry ${attempt}/${MAX_CLASSIFY_RETRIES} in ${delayMs / 1000}s…`);
+          await new Promise((r) => setTimeout(r, delayMs));
+          continue;
+        }
+
+        console.error('[llm] classifyRequirement error:', err.message);
+        throw err;
+      }
     }
   }
 

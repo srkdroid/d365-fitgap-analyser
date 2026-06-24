@@ -53,6 +53,9 @@ router.post('/analyze/batch', async (req, res) => {
 
   console.log(`[analyze/batch] Starting batch of ${requirements.length} requirements…`);
 
+  // Gemini 2.0 Flash free tier: 15 requests/min. Space requests ~5s apart to stay safe.
+  const BATCH_DELAY_MS = 5_000;
+
   for (let i = 0; i < requirements.length; i++) {
     const req_text = requirements[i];
 
@@ -81,6 +84,11 @@ router.post('/analyze/batch', async (req, res) => {
         error: err.message,
       };
       res.write(`data: ${JSON.stringify(errorPayload)}\n\n`);
+    }
+
+    // Delay before next request (skip after last one)
+    if (i < requirements.length - 1) {
+      await new Promise((r) => setTimeout(r, BATCH_DELAY_MS));
     }
   }
 
