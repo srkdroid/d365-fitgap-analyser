@@ -3,7 +3,11 @@ export default function AnalysisDetail({ row }) {
   const isvSuggestion = row.isvSuggestion || row.isv || null;
   const workaround = row.workaround || null;
   const sources = row.sources || row.sourceReferences || [];
-  const confidence = row.confidence ?? row.aiConfidence ?? null;
+  const rawConfidence = row.confidence ?? row.aiConfidence ?? null;
+  // Gemini returns confidence as a 0-1 decimal (e.g. 0.85); normalize to 0-100 for display
+  const confidence = rawConfidence !== null && rawConfidence !== undefined
+    ? (rawConfidence <= 1 ? Math.round(rawConfidence * 100) : Math.round(rawConfidence))
+    : null;
   const reasoning = row.reasoning || null;
   const recommendation = row.recommendation || null;
 
